@@ -1,0 +1,11 @@
+# uname -r
+7.2.1
+# dmidecode -s bios-version
+GPT.4xx.SERM1.V102.P8C0M0C15.09.BL
+# lscpu
+Model name:                              AMD Ryzen AI 9 HX 470 w/ Radeon 890M
+# ethtool -i eno1
+driver: atlantic
+version: 7.2.1
+firmware-version: 1.5.45
+expansion-rom-version: 

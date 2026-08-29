@@ -1,0 +1,167 @@
+# journalctl -k around drop 11 (2026-08-29 21:07). Monotonic seconds. Register dumps and module lists trimmed.
+[26767.556040] ser10 kernel: atlantic 0000:c3:00.0 eno1: atlantic: link change old 2500 new 0
+[26767.762293] ser10 kernel: atlantic 0000:c3:00.0 eno1: PTP RX filter restore failed in link change
+[26783.206024] ser10 kernel: ------------[ cut here ]------------
+[26783.206095] ser10 kernel: hw_atl2_shared_buffer_finish_ack
+[26783.206129] ser10 kernel: WARNING: drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c:112 at aq_a2_fw_deinit+0xb9/0xd0 [atlantic], CPU#2: ip/2225383
+[26783.206140] ser10 kernel: Modules linked in: iwlmvm mac80211 iwlwifi tcp_diag inet_diag msr sd_mod scsi_mod scsi_common xt_connmark nft_limit xt_LOG nf_log_syslog xt_limit ccm rfcomm snd_seq_dumm
+[26783.206204] ser10 kernel:  snd_hda_codec_hdmi xt_tcpudp btintel edac_mce_amd btmtk ip6t_rpfilter joydev snd_hda_intel snd_compress edac_core btbcm mousedev ac97_bus ipt_rpfilter amd_atl snd_pcm_d
+[26783.206255] ser10 kernel:  thunderbolt nvme_core xhci_hcd nvme_keyring nvme_auth libblake2b drm_buddy crc16 amdxcp i2c_algo_bit drm_ttm_helper ttm drm_exec drm_panel_backlight_quirks gpu_sched dr
+[26783.206276] ser10 kernel: CPU: 2 UID: 0 PID: 2225383 Comm: ip Tainted: G        W           7.2.1 #1-NixOS PREEMPT(lazy) 
+[26783.206302] ser10 kernel: Tainted: [W]=WARN
+[26783.206327] ser10 kernel: Hardware name: AZW SER/SER, BIOS GPT.4xx.SERM1.V102.P8C0M0C15.09.BL 01/20/2026
+[26783.206343] ser10 kernel: RIP: 0010:aq_a2_fw_deinit+0xb9/0xd0 [atlantic]
+[26783.206366] ser10 kernel: Code: 1a 00 00 85 c0 75 e2 31 c0 48 8b 54 24 08 65 48 2b 15 b3 99 68 d3 75 1e 48 83 c4 10 5b 5d c3 cc cc cc cc 48 8d 3d 07 4a bd 00 <67> 48 0f b9 3a b8 92 ff ff ff eb d3
+[26783.206399] ser10 kernel: RSP: 0018:ffffd44e4d603628 EFLAGS: 00010246
+[26783.206414] ser10 kernel: RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+[26783.206437] ser10 kernel: RDX: 0000000000000001 RSI: 0000000040000000 RDI: ffffffffc26a7070
+[26783.206445] ser10 kernel: RBP: ffff8dc550ab0400 R08: 0000000040000000 R09: 00000000ffffffff
+[26783.206467] ser10 kernel: R10: 0000000000000e00 R11: 00000000ffffffff R12: ffff8dc6d6240b00
+[26783.206493] ser10 kernel: R13: ffff8dc6d6240188 R14: 0000000000000001 R15: ffff8dc6d6240000
+[26783.206502] ser10 kernel: FS:  00007e6747124bc0(0000) GS:ffff8dcaa8dbc000(0000) knlGS:0000000000000000
+[26783.206521] ser10 kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[26783.206539] ser10 kernel: CR2: 00007c73f3027ec0 CR3: 0000000682129000 CR4: 0000000000f50ef0
+[26783.206560] ser10 kernel: PKRU: 55555554
+[26783.206580] ser10 kernel: Call Trace:
+[26783.206596] ser10 kernel:  <TASK>
+[26783.206616] ser10 kernel:  aq_nic_deinit.part.0+0xb6/0xd0 [atlantic]
+[26783.206627] ser10 kernel:  aq_ndev_close+0x2e/0x40 [atlantic]
+[26783.206651] ser10 kernel:  __dev_close_many+0xb0/0x1f0
+[26783.206663] ser10 kernel:  __dev_change_flags+0xe2/0x200
+[26783.206676] ser10 kernel:  netif_change_flags+0x27/0x70
+[26783.206686] ser10 kernel:  do_setlink.isra.0+0x338/0x1320
+[26783.206706] ser10 kernel:  ? __pfx_rtnl_getlink+0x10/0x10
+[26783.206723] ser10 kernel:  ? rtnetlink_rcv_msg+0x354/0x3e0
+[26783.206739] ser10 kernel:  ? __nla_validate_parse+0x5c/0xcc0
+[26783.206758] ser10 kernel:  ? __pfx_rtnetlink_rcv_msg+0x10/0x10
+[26783.206784] ser10 kernel:  ? __kmalloc_cache_noprof+0x15e/0x470
+[26783.206804] ser10 kernel:  ? security_capable+0x66/0x110
+[26783.206815] ser10 kernel:  rtnl_newlink+0x8ee/0xcd0
+[26783.206830] ser10 kernel:  ? __skb_try_recv_datagram+0xa1/0x190
+[26783.206846] ser10 kernel:  ? __skb_datagram_iter+0x77/0x320
+[26783.206862] ser10 kernel:  ? __pfx_simple_copy_to_iter+0x10/0x10
+[26783.206876] ser10 kernel:  ? __rmqueue_pcplist+0x5e/0x10b0
+[26783.206894] ser10 kernel:  ? __wake_up+0x44/0x60
+[26783.206903] ser10 kernel:  ? __rmqueue_pcplist+0x5e/0x10b0
+[26783.206915] ser10 kernel:  ? __pfx_rtnl_newlink+0x10/0x10
+[26783.206929] ser10 kernel:  rtnetlink_rcv_msg+0x349/0x3e0
+[26783.206946] ser10 kernel:  ? page_ext_get+0x12/0xa0
+[26783.206964] ser10 kernel:  ? __pgalloc_tag_add.isra.0+0x18a/0x250
+[26783.206974] ser10 kernel:  ? get_page_from_freelist+0x3f7/0x1d70
+[26783.206987] ser10 kernel:  ? __pfx_rtnetlink_rcv_msg+0x10/0x10
+[26783.206996] ser10 kernel:  netlink_rcv_skb+0x5c/0x110
+[26783.207032] ser10 kernel:  netlink_unicast+0x252/0x380
+[26783.207067] ser10 kernel:  netlink_sendmsg+0x20d/0x440
+[26783.207077] ser10 kernel:  ____sys_sendmsg+0x35c/0x380
+[26783.207092] ser10 kernel:  ? import_iovec+0x1b/0x30
+[26783.207110] ser10 kernel:  ___sys_sendmsg+0x99/0xe0
+[26783.207134] ser10 kernel:  ? set_ptes.isra.0+0x36/0x80
+[26783.207147] ser10 kernel:  __sys_sendmsg+0x8a/0xf0
+[26783.207159] ser10 kernel:  do_syscall_64+0x134/0x6b0
+[26783.207167] ser10 kernel:  ? kmem_cache_free+0xbd/0x410
+[26783.207183] ser10 kernel:  ? __x64_sys_close+0x3d/0x80
+[26783.207192] ser10 kernel:  ? __fput+0x16d/0x2b0
+[26783.207205] ser10 kernel:  ? __x64_sys_close+0x3d/0x80
+[26783.207212] ser10 kernel:  ? do_syscall_64+0x173/0x6b0
+[26783.207227] ser10 kernel:  ? irqentry_exit+0x44/0x760
+[26783.207240] ser10 kernel:  ? do_syscall_64+0xeb/0x6b0
+[26783.207252] ser10 kernel:  ? exc_page_fault+0x6e/0x170
+[26783.207267] ser10 kernel:  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[26783.207283] ser10 kernel: RIP: 0033:0x7e674729a03e
+[26783.207295] ser10 kernel: Code: 03 00 00 59 5e 48 83 f8 fc 74 39 c9 31 d2 31 c9 31 f6 31 ff 45 31 c0 45 31 c9 45 31 d2 45 31 db c3 0f 1f 00 48 8b 45 10 0f 05 <c9> 31 d2 31 c9 31 f6 31 ff 45 31 c0
+[26783.207310] ser10 kernel: RSP: 002b:00007fff302ab5e0 EFLAGS: 00000202 ORIG_RAX: 000000000000002e
+[26783.207322] ser10 kernel: RAX: ffffffffffffffda RBX: 0000000000000002 RCX: 00007e674729a03e
+[26783.207337] ser10 kernel: RDX: 0000000000000000 RSI: 00007fff302ab6a0 RDI: 0000000000000003
+[26783.207344] ser10 kernel: RBP: 00007fff302ab5f0 R08: 0000000000000000 R09: 0000000000000000
+[26783.207353] ser10 kernel: R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000002
+[26783.207359] ser10 kernel: R13: 00007fff302abda0 R14: 00005f74f3100020 R15: 000000006a932de7
+[26783.207372] ser10 kernel:  </TASK>
+[26783.207384] ser10 kernel: ---[ end trace 0000000000000000 ]---
+[26785.569080] ser10 kernel: atlantic: Boot code hanged
+[26785.569336] ser10 kernel: ------------[ cut here ]------------
+[26785.569632] ser10 kernel: hw_atl2_shared_buffer_finish_ack
+[26785.569662] ser10 kernel: WARNING: drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c:112 at aq_a2_fw_deinit+0xb9/0xd0 [atlantic], CPU#15: ip/2225566
+[26785.569702] ser10 kernel: Modules linked in: iwlmvm mac80211 iwlwifi tcp_diag inet_diag msr sd_mod scsi_mod scsi_common xt_connmark nft_limit xt_LOG nf_log_syslog xt_limit ccm rfcomm snd_seq_dumm
+[26785.569770] ser10 kernel:  snd_hda_codec_hdmi xt_tcpudp btintel edac_mce_amd btmtk ip6t_rpfilter joydev snd_hda_intel snd_compress edac_core btbcm mousedev ac97_bus ipt_rpfilter amd_atl snd_pcm_d
+[26785.569841] ser10 kernel:  thunderbolt nvme_core xhci_hcd nvme_keyring nvme_auth libblake2b drm_buddy crc16 amdxcp i2c_algo_bit drm_ttm_helper ttm drm_exec drm_panel_backlight_quirks gpu_sched dr
+[26785.569882] ser10 kernel: CPU: 15 UID: 0 PID: 2225566 Comm: ip Tainted: G        W           7.2.1 #1-NixOS PREEMPT(lazy) 
+[26785.569914] ser10 kernel: Tainted: [W]=WARN
+[26785.569957] ser10 kernel: Hardware name: AZW SER/SER, BIOS GPT.4xx.SERM1.V102.P8C0M0C15.09.BL 01/20/2026
+[26785.569988] ser10 kernel: RIP: 0010:aq_a2_fw_deinit+0xb9/0xd0 [atlantic]
+[26785.570039] ser10 kernel: Code: 1a 00 00 85 c0 75 e2 31 c0 48 8b 54 24 08 65 48 2b 15 b3 99 68 d3 75 1e 48 83 c4 10 5b 5d c3 cc cc cc cc 48 8d 3d 07 4a bd 00 <67> 48 0f b9 3a b8 92 ff ff ff eb d3
+[26785.570062] ser10 kernel: RSP: 0018:ffffd44e67cff5b0 EFLAGS: 00010246
+[26785.570094] ser10 kernel: RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+[26785.570121] ser10 kernel: RDX: 0000000000000001 RSI: 0000000040000000 RDI: ffffffffc26a7070
+[26785.570141] ser10 kernel: RBP: ffff8dc550ab0400 R08: 0000000040000000 R09: 00000000ffffffff
+[26785.570168] ser10 kernel: R10: 0000000000000e00 R11: 00000000ffffffff R12: ffff8dc6d6240b00
+[26785.570182] ser10 kernel: R13: 0000000000000001 R14: 0000000000000001 R15: ffff8dc6d6240000
+[26785.570192] ser10 kernel: FS:  00007406d784ebc0(0000) GS:ffff8dcaa943c000(0000) knlGS:0000000000000000
+[26785.570217] ser10 kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[26785.570237] ser10 kernel: CR2: 0000779b078ee180 CR3: 000000035507b000 CR4: 0000000000f50ef0
+[26785.570251] ser10 kernel: PKRU: 55555554
+[26785.570264] ser10 kernel: Call Trace:
+[26785.570271] ser10 kernel:  <TASK>
+[26785.570288] ser10 kernel:  aq_nic_deinit.part.0+0xb6/0xd0 [atlantic]
+[26785.570298] ser10 kernel:  aq_ndev_open+0x44/0x60 [atlantic]
+[26785.570323] ser10 kernel:  __dev_open+0x11b/0x260
+[26785.570342] ser10 kernel:  __dev_change_flags+0x1b2/0x200
+[26785.570359] ser10 kernel:  netif_change_flags+0x27/0x70
+[26785.570370] ser10 kernel:  do_setlink.isra.0+0x338/0x1320
+[26785.570388] ser10 kernel:  ? __nla_validate_parse+0x5c/0xcc0
+[26785.570407] ser10 kernel:  ? mas_wr_split+0xf63/0x1180
+[26785.570433] ser10 kernel:  ? __kmalloc_cache_noprof+0x15e/0x470
+[26785.570450] ser10 kernel:  ? security_capable+0x66/0x110
+[26785.570467] ser10 kernel:  rtnl_newlink+0x8ee/0xcd0
+[26785.570483] ser10 kernel:  ? __wake_up+0x44/0x60
+[26785.570504] ser10 kernel:  ? netlink_recvmsg+0x273/0x310
+[26785.570519] ser10 kernel:  ? __check_object_size+0x44/0x1f0
+[26785.570544] ser10 kernel:  ? move_addr_to_user+0xe8/0x110
+[26785.570560] ser10 kernel:  ? ____sys_recvmsg+0xf8/0x1e0
+[26785.570572] ser10 kernel:  ? __pfx_rtnl_newlink+0x10/0x10
+[26785.570590] ser10 kernel:  rtnetlink_rcv_msg+0x349/0x3e0
+[26785.570605] ser10 kernel:  ? __pfx_rtnetlink_rcv_msg+0x10/0x10
+[26785.570620] ser10 kernel:  netlink_rcv_skb+0x5c/0x110
+[26785.570631] ser10 kernel:  netlink_unicast+0x252/0x380
+[26785.570644] ser10 kernel:  netlink_sendmsg+0x20d/0x440
+[26785.570660] ser10 kernel:  ____sys_sendmsg+0x35c/0x380
+[26785.570674] ser10 kernel:  ? import_iovec+0x1b/0x30
+[26785.570687] ser10 kernel:  ___sys_sendmsg+0x99/0xe0
+[26785.570704] ser10 kernel:  ? do_wp_page+0x5b5/0xf10
+[26785.570721] ser10 kernel:  __sys_sendmsg+0x8a/0xf0
+[26785.570741] ser10 kernel:  do_syscall_64+0x134/0x6b0
+[26785.570763] ser10 kernel:  ? count_memcg_events+0xc5/0x180
+[26785.570781] ser10 kernel:  ? handle_mm_fault+0x1e8/0x2f0
+[26785.570806] ser10 kernel:  ? do_user_addr_fault+0x21a/0x690
+[26785.570824] ser10 kernel:  ? irqentry_exit+0x44/0x760
+[26785.570846] ser10 kernel:  ? do_syscall_64+0xeb/0x6b0
+[26785.570866] ser10 kernel:  ? exc_page_fault+0x6e/0x170
+[26785.570881] ser10 kernel:  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[26785.570901] ser10 kernel: RIP: 0033:0x7406d769a03e
+[26785.570930] ser10 kernel: Code: 03 00 00 59 5e 48 83 f8 fc 74 39 c9 31 d2 31 c9 31 f6 31 ff 45 31 c0 45 31 c9 45 31 d2 45 31 db c3 0f 1f 00 48 8b 45 10 0f 05 <c9> 31 d2 31 c9 31 f6 31 ff 45 31 c0
+[26785.570952] ser10 kernel: RSP: 002b:00007fffada2ea90 EFLAGS: 00000202 ORIG_RAX: 000000000000002e
+[26785.570971] ser10 kernel: RAX: ffffffffffffffda RBX: 0000000000000002 RCX: 00007406d769a03e
+[26785.570994] ser10 kernel: RDX: 0000000000000000 RSI: 00007fffada2eb50 RDI: 0000000000000003
+[26785.571031] ser10 kernel: RBP: 00007fffada2eaa0 R08: 0000000000000000 R09: 0000000000000000
+[26785.571057] ser10 kernel: R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000002
+[26785.571077] ser10 kernel: R13: 00007fffada2f250 R14: 0000579eff382020 R15: 000000006a932de9
+[26785.571091] ser10 kernel:  </TASK>
+[26785.571104] ser10 kernel: ---[ end trace 0000000000000000 ]---
+[26806.749018] ser10 kernel: pci 0000:c3:00.0: [1d6a:04c0] type 00 class 0x020000 PCIe Endpoint
+[26806.749350] ser10 kernel: pci 0000:c3:00.0: BAR 0 [mem 0xdc400000-0xdc47ffff 64bit]
+[26806.749489] ser10 kernel: pci 0000:c3:00.0: BAR 2 [mem 0xdc4a0000-0xdc4a0fff 64bit]
+[26806.749701] ser10 kernel: pci 0000:c3:00.0: BAR 4 [mem 0xdc000000-0xdc3fffff 64bit]
+[26806.749901] ser10 kernel: pci 0000:c3:00.0: ROM [mem 0x00000000-0x0001ffff pref]
+[26806.750095] ser10 kernel: pci 0000:c3:00.0: Max Payload Size set to 256 (was 128, max 512)
+[26806.750282] ser10 kernel: pci 0000:c3:00.0: supports D1 D2
+[26806.750377] ser10 kernel: pci 0000:c3:00.0: PME# supported from D0 D1 D3hot D3cold
+[26806.750478] ser10 kernel: pci 0000:c3:00.0: 15.753 Gb/s available PCIe bandwidth, limited by 16.0 GT/s PCIe x1 link at 0000:00:02.4 (capable of 63.012 Gb/s with 16.0 GT/s PCIe x4 link)
+[26806.750580] ser10 kernel: pci 0000:c3:00.0: Adding to iommu group 18
+[26806.750850] ser10 kernel: pci 0000:c3:00.0: BAR 4 [mem 0xdc000000-0xdc3fffff 64bit]: assigned
+[26806.751124] ser10 kernel: pci 0000:c3:00.0: BAR 0 [mem 0xdc400000-0xdc47ffff 64bit]: assigned
+[26806.751240] ser10 kernel: pci 0000:c3:00.0: ROM [mem 0xdc480000-0xdc49ffff pref]: assigned
+[26806.751333] ser10 kernel: pci 0000:c3:00.0: BAR 2 [mem 0xdc4a0000-0xdc4a0fff 64bit]: assigned
+[26806.751404] ser10 kernel: atlantic 0000:c3:00.0: enabling device (0000 -> 0002)
+[26806.858609] ser10 kernel: atlantic: Detect ATL2FW 105002d
+[26806.884032] ser10 kernel: atlantic 0000:c3:00.0 eno1: renamed from eth0
+[26807.019204] ser10 kernel: atlantic 0000:c3:00.0 eno1: Enable PTP Support. 0 GPIO(s)
+[26815.234434] ser10 kernel: atlantic 0000:c3:00.0 eno1: atlantic: link change old 0 new 2500

@@ -1,0 +1,84 @@
+# The watchdog's escalation for drop 11: forensics at the moment of failure, then the three steps. Note ethtool -S counters that come from MMIO reading all-ones (18446744073709551615 / 4294967295) and phy=-1C.
+[26761.997364] ser10 systemd[1]: Starting Start recovery if eno1 has lost carrier...
+[26762.025165] ser10 systemd[1]: nic-watchdog-check.service: Deactivated successfully.
+[26762.025588] ser10 systemd[1]: Finished Start recovery if eno1 has lost carrier.
+[26777.997831] ser10 systemd[1]: Starting Start recovery if eno1 has lost carrier...
+[26783.022454] ser10 nic-watchdog-check-start[2225001]: carrier down on two consecutive checks — triggering recovery
+[26783.029591] ser10 systemd[1]: Starting Recover eno1 when the AQC113 drops link (AQtion issue #74)...
+[26783.030984] ser10 systemd[1]: nic-watchdog-check.service: Deactivated successfully.
+[26783.031299] ser10 systemd[1]: Finished Start recovery if eno1 has lost carrier.
+[26783.044062] ser10 nic-recover[2225342]: recovery: carrier lost on eno1 — starting escalation
+[26783.044062] ser10 nic-recover[2225342]: recovery: --- forensics begin (state at the moment of failure) ---
+[26783.049208] ser10 nic-recover[2225342]: recovery: link: carrier=0 speed=0 operstate=down
+[26783.057504] ser10 nic-recover[2225342]: recovery: temps: cpu=44C
+[26783.062429] ser10 nic-recover[2225342]: recovery: temps: phy=-1C mac=-1C
+[26783.064666] ser10 nic-recover[2225342]: recovery: load: 2.50 2.10 1.58 1/2197 2225373
+[26783.064666] ser10 nic-recover[2225342]: recovery: --- ethtool -S (nonzero counters only) ---
+[26783.066922] ser10 nic-recover[2225376]: NIC statistics:
+[26783.066922] ser10 nic-recover[2225376]:      InPackets: 5702018
+[26783.066922] ser10 nic-recover[2225376]:      InUCast: 5181531
+[26783.066922] ser10 nic-recover[2225376]:      InMCast: 88840
+[26783.066922] ser10 nic-recover[2225376]:      InBCast: 431647
+[26783.066922] ser10 nic-recover[2225376]:      OutPackets: 4046242
+[26783.066922] ser10 nic-recover[2225376]:      OutUCast: 4046016
+[26783.066922] ser10 nic-recover[2225376]:      OutMCast: 216
+[26783.066922] ser10 nic-recover[2225376]:      OutBCast: 10
+[26783.066922] ser10 nic-recover[2225376]:      InOctets: 4123835633
+[26783.066922] ser10 nic-recover[2225376]:      OutOctets: 1452253934
+[26783.066922] ser10 nic-recover[2225376]:      InPacketsDma: 18446744073709551615
+[26783.066922] ser10 nic-recover[2225376]:      OutPacketsDma: 18446744073709551615
+[26783.066922] ser10 nic-recover[2225376]:      InOctetsDma: 18446744073709551615
+[26783.066922] ser10 nic-recover[2225376]:      OutOctetsDma: 18446744073709551615
+[26783.066922] ser10 nic-recover[2225376]:      InDroppedDma: 4294967295
+[26783.066922] ser10 nic-recover[2225376]:      Queue[0] InPackets: 465374
+[26783.066922] ser10 nic-recover[2225376]:      Queue[0] InErrors: 4
+[26783.066922] ser10 nic-recover[2225376]:      Queue[0] Polls: 602554
+[26783.066922] ser10 nic-recover[2225376]:      Queue[0] PageFlips: 1423
+[26783.066922] ser10 nic-recover[2225376]:      Queue[0] PageReuses: 463947
+[26783.066922] ser10 nic-recover[2225376]:      Queue[0] OutPackets: 249367
+[26783.066922] ser10 nic-recover[2225376]:      Queue[1] InPackets: 1989473
+[26783.066922] ser10 nic-recover[2225376]:      Queue[1] Polls: 1743289
+[26783.066922] ser10 nic-recover[2225376]:      Queue[1] PageFlips: 175850
+[26783.066922] ser10 nic-recover[2225376]:      Queue[1] PageReuses: 1786843
+[26783.066922] ser10 nic-recover[2225376]:      Queue[1] PageFrees: 26769
+[26783.066922] ser10 nic-recover[2225376]:      Queue[1] OutPackets: 631523
+[26783.066922] ser10 nic-recover[2225376]:      Queue[2] InPackets: 45053
+[26783.066922] ser10 nic-recover[2225376]:      Queue[2] Polls: 838743
+[26783.066922] ser10 nic-recover[2225376]:      Queue[2] PageFlips: 1661
+[26783.066922] ser10 nic-recover[2225376]:      Queue[2] PageReuses: 43344
+[26783.066922] ser10 nic-recover[2225376]:      Queue[2] PageFrees: 22
+[26783.066922] ser10 nic-recover[2225376]:      Queue[2] OutPackets: 828042
+[26783.066922] ser10 nic-recover[2225376]:      Queue[3] InPackets: 47601
+[26783.066922] ser10 nic-recover[2225376]:      Queue[3] Polls: 191354
+[26783.066922] ser10 nic-recover[2225376]:      Queue[3] PageFlips: 915
+[26783.066922] ser10 nic-recover[2225376]:      Queue[3] PageReuses: 46667
+[26783.066922] ser10 nic-recover[2225376]:      Queue[3] PageFrees: 15
+[26783.066922] ser10 nic-recover[2225376]:      Queue[3] OutPackets: 174691
+[26783.067593] ser10 nic-recover[2225342]: recovery: --- PCIe link state ---
+[26783.078437] ser10 nic-recover[2225379]:                 DevSta:        CorrErr+ NonFatalErr+ FatalErr- UnsupReq+ AuxPwr+ TransPend-
+[26783.078437] ser10 nic-recover[2225379]:                 LnkCtl:        ASPM Disabled; RCB 64 bytes, LnkDisable- CommClk-
+[26783.078437] ser10 nic-recover[2225379]:                 LnkSta:        Speed 16GT/s, Width x1 (downgraded)
+[26783.078437] ser10 nic-recover[2225379]:                 LnkCtl2: Target Link Speed: 16GT/s, EnterCompliance- SpeedDis-
+[26783.078437] ser10 nic-recover[2225379]:                 LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+ EqualizationPhase1+
+[26783.078437] ser10 nic-recover[2225379]:                 LnkCtl3: LnkEquIntrruptEn- PerformEqu-
+[26783.078826] ser10 nic-recover[2225342]: recovery: --- recent kernel messages ---
+[26783.082096] ser10 nic-recover[2225382]: Aug 29 21:07:03.242434 ser10 kernel: atlantic 0000:c3:00.0 eno1: atlantic: link change old 2500 new 0
+[26783.082096] ser10 nic-recover[2225382]: Aug 29 21:07:03.448684 ser10 kernel: atlantic 0000:c3:00.0 eno1: PTP RX filter restore failed in link change
+[26783.082331] ser10 nic-recover[2225342]: recovery: --- forensics end ---
+[26783.082331] ser10 nic-recover[2225342]: recovery: step 1/3: ip link down/up
+[26785.569379] ser10 nic-recover[2225566]: RTNETLINK answers: Connection timed out
+[26793.498896] ser10 systemd[1]: Starting Start recovery if eno1 has lost carrier...
+[26793.526280] ser10 systemd[1]: nic-watchdog-check.service: Deactivated successfully.
+[26793.526624] ser10 systemd[1]: Finished Start recovery if eno1 has lost carrier.
+[26793.575285] ser10 nic-recover[2225342]: recovery: step 2/3: ethtool -r (firmware renegotiate)
+[26803.581247] ser10 nic-recover[2225342]: recovery: step 3/3: PCI remove + rescan of 0000:c3:00.0
+[26808.746460] ser10 systemd[1]: Starting Start recovery if eno1 has lost carrier...
+[26813.778771] ser10 nic-watchdog-check-start[2227585]: carrier down on two consecutive checks — triggering recovery
+[26813.785842] ser10 systemd[1]: nic-watchdog-check.service: Deactivated successfully.
+[26813.786101] ser10 systemd[1]: Finished Start recovery if eno1 has lost carrier.
+[26821.870237] ser10 nic-recover[2225342]: recovery: RECOVERED after step 3 (PCI rescan)
+[26821.870952] ser10 systemd[1]: nic-watchdog.service: Deactivated successfully.
+[26821.871519] ser10 systemd[1]: Finished Recover eno1 when the AQC113 drops link (AQtion issue #74).
+[26823.996922] ser10 systemd[1]: Starting Start recovery if eno1 has lost carrier...
+[26824.024118] ser10 systemd[1]: nic-watchdog-check.service: Deactivated successfully.
+[26824.024364] ser10 systemd[1]: Finished Start recovery if eno1 has lost carrier.

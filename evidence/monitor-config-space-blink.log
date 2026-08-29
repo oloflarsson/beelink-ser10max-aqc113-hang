@@ -1,0 +1,10 @@
+# The uncapped control (2026-08-29 16:39): the sample BEFORE the drop reads the
+# NIC's PCI vendor ID as ffff (config space not answering) with carrier still 1
+# and the bound ping still ok; two seconds later config space answers again
+# (1d6a) but the link is gone and the MMIO temperature reads -1. The chip
+# dropped off the bus and re-enumerated; its firmware did not come back.
+t=2026-08-29T16:39:40 load=4.37 mW=15236 mhz=1969 cpu=41C phy=40C mac=40C nvme=29C | eno1 carrier=1 speed=2500 op=up ping=ok lnk=1014 vid=1d6a drops=3
+t=2026-08-29T16:39:42 load=4.37 mW=31953 mhz=2921 cpu=52C phy=40C mac=40C nvme=29C | eno1 carrier=1 speed=2500 op=up ping=ok lnk=1014 vid=1d6a drops=3
+t=2026-08-29T16:39:44 load=4.66 mW=44846 mhz=2549 cpu=57C phy=40C mac=-1C nvme=29C | eno1 carrier=1 speed=2500 op=up ping=ok lnk= vid=ffff drops=3
+t=2026-08-29T16:39:46 load=4.66 mW=46558 mhz=3518 cpu=60C phy=-1C mac=-1C nvme=29C | eno1 carrier=0 speed=0 op=down ping=FAIL lnk=1014 vid=1d6a drops=4
+t=2026-08-29T16:39:49 load=4.93 mW=47962 mhz=3499 cpu=60C phy=-1C mac=-1C nvme=29C | eno1 carrier=0 speed=0 op=down ping=FAIL lnk=1014 vid=1d6a drops=4
