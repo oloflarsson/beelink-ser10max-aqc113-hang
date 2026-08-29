@@ -22,4 +22,4 @@ while time.time() < end:
     n += 1
     if n % 20 == 0:
         print(f"{n} passes, last: {text[:60]!r}", flush=True)
-print(f"T7 done: {n} transcriptions in {secs}s", flush=True)
+print(f"done: {n} transcriptions in {secs}s", flush=True)
